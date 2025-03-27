@@ -5,7 +5,7 @@ This is my repo for STATS 220.
 <!---numbered lists--->
 1. I am undertaking a degree in **Bechalor of Arts**.
 2. I am taking STATS 220 because I am studying *Maths* and *Stats*.
-3. I am interested in learning about *Maths* and *stats*.
+3. I am interested in learning about *Maths* and *Stats*.
 
 ### My interests
 <!---unodered lists--->
