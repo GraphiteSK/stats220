@@ -1,0 +1,61 @@
+---
+title: My dynamic report
+output: html_fragment
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
+
+```
+
+```{css}
+body {padding:10px}
+p {font-family:"Verdana", "Helvetica", sans-serif; font-size: medium}
+```
+
+## Observation of the number of the black cars and their type on my daily commute between university and home
+
+I'm interested in how many black cars I can see on each commute and what is the most common type of those black cars. My data records the number of black cars appeared on each commute and the most appeared type on each commute in one week.
+
+```{r}
+library(tidyverse)
+
+#import data into R and rename the data
+logged_data <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQPAfcOzPMMuREpzq3Y8FB-EprtZ_jjRbbjFD4S-KCx4cOLZQHa_mVGzrXZVG4XJXapD1gdVPhT0y_n/pub?output=csv")
+
+#rename the variables of the data frame
+latest_data <- logged_data %>%
+  rename(cars_color = 2,
+         cars_number = 3,
+         cars_type = 4)
+
+#summary values
+mean_number <- latest_data$cars_number %>% mean(na.rm = TRUE) %>% round(0)
+max_number <- latest_data$cars_number %>% max(na.rm = TRUE)
+min_number <- latest_data$cars_number %>% min(na.rm = TRUE)
+
+#bar charts
+latest_data %>%
+  ggplot() +
+  geom_bar(aes(x = cars_color, fill = cars_type)) +
+  labs(title = "Appearance of black car",
+       caption = "If black cars appeared on this commute, then count 1",
+       x = "Confirmation",
+       y = "Count")
+
+latest_data %>%
+  ggplot() +
+  geom_bar(aes(x = cars_type, fill = cars_type)) +
+  labs(title = "The most appeared black car type on each commute",
+       caption = "If the type is the most appeared type on this commute, then count 1",
+       x = "Type",
+       y = "Count")
+```
+
+The mean number of black cars appeared on my daily commute between university and home is `r mean_number`.
+
+The maximum number of black cars appeared on one singular commute between university and home is `r max_number`.
+
+The minimum number of black cars appeared on one singular commute between university and home is `r min_number`.
+
+
